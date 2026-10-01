@@ -1,0 +1,2215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>درع التنمية المستدامة | مواد البناء</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --black: #0d1410;
+      --black-2: #141d18;
+      --green: #58745f;
+      --green-light: #78917d;
+      --sand: #d9c49b;
+      --cream: #f1ede4;
+      --white: #faf9f5;
+      --gray: #9aa49d;
+      --line: rgba(255,255,255,.11);
+      --dark-line: rgba(13,20,16,.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: "IBM Plex Sans Arabic", sans-serif;
+      overflow-x: hidden;
+    }
+
+    body.loading {
+      overflow: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    ::selection {
+      background: var(--green);
+      color: white;
+    }
+
+    /* =========================
+       PRELOADER
+    ========================= */
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--black);
+      display: grid;
+      place-items: center;
+    }
+
+    .loader-inner {
+      width: min(420px, 82vw);
+      text-align: center;
+      color: white;
+    }
+
+    .loader-logo {
+      width: 105px;
+      height: 105px;
+      object-fit: contain;
+      margin: 0 auto 25px;
+      opacity: 0;
+      transform: scale(.7);
+    }
+
+    .loader-title {
+      font-family: "Cairo", sans-serif;
+      font-weight: 700;
+      font-size: 25px;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    .loader-sub {
+      color: var(--gray);
+      font-size: 12px;
+      margin-top: 6px;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .loader-bar {
+      height: 1px;
+      background: rgba(255,255,255,.12);
+      margin-top: 30px;
+      overflow: hidden;
+    }
+
+    .loader-progress {
+      width: 0;
+      height: 100%;
+      background: var(--sand);
+    }
+
+    .loader-number {
+      display: block;
+      margin-top: 12px;
+      color: var(--sand);
+      font-size: 11px;
+      opacity: 0;
+    }
+
+    /* =========================
+       NAV
+    ========================= */
+
+    .nav {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      right: 0;
+      left: 0;
+      padding: 21px 5vw;
+      color: white;
+      transition: .35s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav.scrolled {
+      padding-top: 13px;
+      padding-bottom: 13px;
+      background: rgba(13,20,16,.94);
+      backdrop-filter: blur(15px);
+      border-color: var(--line);
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .brand-title {
+      font-family: "Cairo", sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .brand-sub {
+      color: #98a39b;
+      font-size: 9px;
+      margin-top: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-size: 13px;
+      color: #d7ddd9;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 8px 0;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--sand);
+      transition: .3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-phone {
+      border: 1px solid rgba(255,255,255,.2);
+      padding: 10px 17px;
+      font-size: 12px;
+      direction: ltr;
+    }
+
+    .nav-phone:hover {
+      background: var(--sand);
+      border-color: var(--sand);
+      color: var(--black);
+    }
+
+    .menu {
+      display: none;
+      color: white;
+      background: none;
+      border: 0;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      color: white;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(8,14,11,.97) 0%,
+          rgba(8,14,11,.82) 48%,
+          rgba(8,14,11,.53) 100%
+        ),
+        url("https://images.pexels.com/photos/13758314/pexels-photo-13758314.jpeg?cs=srgb&dl=pexels-markus-winkler-1430818-13758314.jpg&fm=jpg")
+        center / cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(217,196,155,.08) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          rgba(217,196,155,.08) 1px,
+          transparent 1px
+        );
+      background-size: 90px 90px;
+      opacity: .18;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      width: min(1400px, 90vw);
+      margin: auto;
+      padding: 150px 0 100px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-copy {
+      max-width: 790px;
+    }
+
+    .hero-kicker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--sand);
+      font-size: 13px;
+      margin-bottom: 27px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 35px;
+      height: 1px;
+      background: var(--sand);
+    }
+
+    .hero h1 {
+      font-family: "Cairo", sans-serif;
+      font-size: clamp(48px, 7.5vw, 105px);
+      font-weight: 800;
+      line-height: .98;
+      letter-spacing: -3px;
+      opacity: 0;
+      transform: translateY(35px);
+    }
+
+    .hero h1 span {
+      color: var(--sand);
+    }
+
+    .hero-text {
+      max-width: 570px;
+      color: #b6c0b9;
+      font-size: 16px;
+      line-height: 1.95;
+      margin-top: 30px;
+      opacity: 0;
+      transform: translateY(25px);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .btn {
+      min-height: 52px;
+      padding: 0 25px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      transition: .3s ease;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--sand);
+      color: var(--black);
+    }
+
+    .btn-primary:hover {
+      background: #ead7b3;
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,.23);
+      color: white;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--sand);
+      color: var(--sand);
+      transform: translateY(-3px);
+    }
+
+    .hero-photo-label {
+      position: absolute;
+      left: 5vw;
+      bottom: 45px;
+      z-index: 3;
+      color: #89938c;
+      font-size: 10px;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+
+    /* =========================
+       GENERAL SECTIONS
+    ========================= */
+
+    .section {
+      padding: 125px 5vw;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    .about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 90px;
+      align-items: center;
+    }
+
+    .section-mark {
+      color: var(--green);
+      border-right: 2px solid var(--green);
+      padding-right: 12px;
+      font-size: 12px;
+    }
+
+    .about-title {
+      font-family: "Cairo", sans-serif;
+      font-size: clamp(35px, 4.5vw, 65px);
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+    }
+
+    .about-text {
+      color: #606a63;
+      line-height: 2;
+      font-size: 15px;
+      max-width: 680px;
+      margin-top: 25px;
+    }
+
+    .about-image {
+      margin-top: 55px;
+      height: 310px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s ease;
+    }
+
+    .about-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .about-image::after {
+      content: "سلسلة توريد موثوقة";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      padding: 14px 20px;
+      background: var(--black);
+      color: var(--sand);
+      font-size: 11px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      border-top: 1px solid var(--dark-line);
+      margin-top: 50px;
+    }
+
+    .stat {
+      padding: 25px;
+      border-left: 1px solid var(--dark-line);
+    }
+
+    .stat:first-child {
+      border-left: 0;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Cairo", sans-serif;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: #737d76;
+      font-size: 12px;
+    }
+
+    /* =========================
+       PRODUCTS
+    ========================= */
+
+    .products {
+      background: var(--black);
+      color: white;
+    }
+
+    .products-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 50px;
+      margin-bottom: 60px;
+    }
+
+    .products-title {
+      font-family: "Cairo", sans-serif;
+      font-size: clamp(38px, 5vw, 70px);
+      line-height: 1.05;
+      max-width: 720px;
+    }
+
+    .products-lead {
+      color: #929c95;
+      max-width: 340px;
+      line-height: 1.9;
+      font-size: 13px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      border-top: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+    }
+
+    .product {
+      min-height: 370px;
+      border-left: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      padding: 25px;
+      background: var(--black-2);
+    }
+
+    .product-image {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: .46;
+      transition: .6s ease;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(
+          to top,
+          rgba(5,9,7,.98),
+          rgba(5,9,7,.3),
+          rgba(5,9,7,.1)
+        );
+    }
+
+    .product:hover .product-image {
+      transform: scale(1.07);
+      opacity: .65;
+    }
+
+    .product-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .product-number {
+      color: var(--sand);
+      font-size: 10px;
+      margin-bottom: 12px;
+    }
+
+    .product h3 {
+      font-family: "Cairo", sans-serif;
+      font-size: 22px;
+      margin-bottom: 7px;
+    }
+
+    .product p {
+      color: #aab3ad;
+      line-height: 1.8;
+      font-size: 12px;
+    }
+
+    /* =========================
+       VALUES
+    ========================= */
+
+    .values-section {
+      background: var(--cream);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 100px;
+    }
+
+    .values-title {
+      font-family: "Cairo", sans-serif;
+      font-size: clamp(38px, 5vw, 67px);
+      line-height: 1.1;
+      margin-top: 25px;
+    }
+
+    .values-text {
+      color: #68726b;
+      line-height: 1.9;
+      margin-top: 22px;
+      max-width: 460px;
+    }
+
+    .value-list {
+      border-top: 1px solid var(--dark-line);
+    }
+
+    .value {
+      display: grid;
+      grid-template-columns: 45px 1fr;
+      gap: 20px;
+      padding: 27px 0;
+      border-bottom: 1px solid var(--dark-line);
+    }
+
+    .value-symbol {
+      color: var(--green);
+    }
+
+    .value h3 {
+      font-size: 17px;
+      margin-bottom: 7px;
+    }
+
+    .value p {
+      color: #707970;
+      font-size: 13px;
+      line-height: 1.8;
+      max-width: 550px;
+    }
+
+    /* =========================
+       CONTACT
+    ========================= */
+
+    .contact {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(50,74,58,.96),
+          rgba(50,74,58,.88)
+        ),
+        url("https://images.pexels.com/photos/4170172/pexels-photo-4170172.jpeg?cs=srgb&dl=pexels-enginakyurt-4170172.jpg&fm=jpg")
+        center / cover;
+      color: white;
+      padding: 105px 5vw;
+    }
+
+    .contact-inner {
+      max-width: 1400px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 70px;
+    }
+
+    .contact h2 {
+      font-family: "Cairo", sans-serif;
+      font-size: clamp(37px, 5vw, 68px);
+      line-height: 1.1;
+      max-width: 720px;
+    }
+
+    .contact p {
+      color: #d0d9d2;
+      margin-top: 18px;
+      line-height: 1.9;
+      max-width: 550px;
+    }
+
+    .contact-info {
+      min-width: 300px;
+    }
+
+    .phone {
+      display: block;
+      direction: ltr;
+      text-align: right;
+      font-size: 23px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      transition: .3s ease;
+    }
+
+    .phone:hover {
+      color: var(--sand);
+    }
+
+    /* =========================
+       LOCATION
+    ========================= */
+
+    .location {
+      background: var(--white);
+      padding: 125px 5vw;
+    }
+
+    .location-grid {
+      display: grid;
+      grid-template-columns: .75fr 1.25fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .location-content {
+      max-width: 500px;
+    }
+
+    .location-title {
+      font-family: "Cairo", sans-serif;
+      font-size: clamp(40px, 5vw, 68px);
+      line-height: 1.1;
+      margin-top: 25px;
+    }
+
+    .location-text {
+      color: #68726b;
+      font-size: 14px;
+      line-height: 2;
+      margin-top: 22px;
+      max-width: 460px;
+    }
+
+    .location-details {
+      margin-top: 35px;
+      border-top: 1px solid var(--dark-line);
+    }
+
+    .location-detail {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--dark-line);
+      color: #5f6962;
+      font-size: 13px;
+    }
+
+    .location-icon {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      color: var(--green);
+      background: var(--cream);
+      font-size: 14px;
+    }
+
+    .map-wrapper {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      background: #dfe4df;
+      box-shadow: 0 20px 60px rgba(13,20,16,.12);
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+    }
+
+    .map-label {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      z-index: 2;
+      background: rgba(13,20,16,.94);
+      color: var(--sand);
+      padding: 11px 17px;
+      font-size: 11px;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      background: #080d0a;
+      color: white;
+      padding: 50px 5vw 25px;
+    }
+
+    .footer-inner {
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 50px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .footer-brand img {
+      width: 55px;
+      height: 55px;
+      object-fit: contain;
+    }
+
+    .footer-brand h3 {
+      font-size: 16px;
+    }
+
+    .footer-brand p {
+      color: #707b73;
+      font-size: 10px;
+      margin-top: 5px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 30px;
+      color: #9ca69f;
+      font-size: 12px;
+    }
+
+    .footer-links a:hover {
+      color: var(--sand);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 22px;
+      color: #59625b;
+      font-size: 10px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1100px) {
+
+      .nav-links {
+        gap: 18px;
+      }
+
+      .about-grid {
+        gap: 55px;
+      }
+
+      .values-grid {
+        gap: 60px;
+      }
+
+      .location-grid {
+        gap: 50px;
+      }
+    }
+
+    @media (max-width: 950px) {
+
+      .nav-links,
+      .nav-phone {
+        display: none;
+      }
+
+      .menu {
+        display: block;
+      }
+
+      .nav.open .nav-links {
+        display: flex;
+        position: absolute;
+        top: 75px;
+        right: 5vw;
+        left: 5vw;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: #101812;
+        border: 1px solid var(--line);
+        padding: 15px 20px;
+      }
+
+      .nav.open .nav-links a {
+        padding: 13px 5px;
+      }
+
+      .about-grid,
+      .values-grid,
+      .location-grid {
+        grid-template-columns: 1fr;
+        gap: 55px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .products-heading {
+        display: block;
+      }
+
+      .products-lead {
+        margin-top: 25px;
+      }
+
+      .contact-inner {
+        display: block;
+      }
+
+      .contact-info {
+        margin-top: 45px;
+      }
+
+      .location-content {
+        max-width: 700px;
+      }
+
+      .map-wrapper {
+        height: 450px;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .section {
+        padding: 85px 6vw;
+      }
+
+      .nav {
+        padding: 16px 6vw;
+      }
+
+      .hero-content {
+        width: 88vw;
+      }
+
+      .hero h1 {
+        font-size: clamp(43px, 14vw, 65px);
+        letter-spacing: -1.5px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        border-left: 0;
+        border-bottom: 1px solid var(--dark-line);
+      }
+
+      .stat:last-child {
+        border-bottom: 0;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product {
+        min-height: 320px;
+      }
+
+      .contact {
+        padding: 80px 6vw;
+      }
+
+      .location {
+        padding: 85px 6vw;
+      }
+
+      .location-title {
+        font-size: clamp(40px, 13vw, 58px);
+      }
+
+      .map-wrapper {
+        height: 380px;
+      }
+
+      .map-label {
+        right: 12px;
+        top: 12px;
+        padding: 9px 13px;
+      }
+
+      .footer-top,
+      .footer-bottom {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 400px) {
+
+      .map-wrapper {
+        height: 330px;
+      }
+
+      .location-detail {
+        font-size: 12px;
+      }
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--sand);
+      outline-offset: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="loading">
+
+  <!-- =========================
+       PRELOADER
+  ========================= -->
+
+  <div class="loader" id="loader">
+
+    <div class="loader-inner">
+
+      <img
+        src="logo.png"
+        class="loader-logo"
+        alt="شعار درع التنمية المستدامة"
+      >
+
+      <div class="loader-title">
+        درع التنمية المستدامة
+      </div>
+
+      <div class="loader-sub">
+        لاستيراد مواد البناء وملحقاتها
+      </div>
+
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+
+      <span class="loader-number">
+        0%
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       NAV
+  ========================= -->
+
+  <header class="nav" id="nav">
+
+    <div class="nav-inner">
+
+      <a href="#home" class="brand">
+
+        <img
+          src="logo.png"
+          alt="درع التنمية المستدامة"
+        >
+
+        <div>
+          <div class="brand-title">
+            درع التنمية المستدامة
+          </div>
+
+          <div class="brand-sub">
+            لاستيراد مواد البناء وملحقاتها
+          </div>
+        </div>
+
+      </a>
+
+      <nav class="nav-links">
+
+        <a href="#about">
+          عن الشركة
+        </a>
+
+        <a href="#products">
+          منتجاتنا
+        </a>
+
+        <a href="#values">
+          لماذا نحن
+        </a>
+
+        <a href="#location">
+          موقعنا
+        </a>
+
+        <a href="#contact">
+          تواصل معنا
+        </a>
+
+      </nav>
+
+      <a
+        class="nav-phone"
+        href="tel:0922131116"
+      >
+        0922131116
+      </a>
+
+      <button
+        class="menu"
+        id="menu"
+        aria-label="القائمة"
+        type="button"
+      >
+        ☰
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero" id="home">
+
+      <div class="hero-content">
+
+        <div class="hero-copy">
+
+          <div class="hero-kicker">
+            توريد يعتمد عليه
+          </div>
+
+          <h1>
+            نبني
+            <span>المستقبل</span>
+            بمواد أفضل.
+          </h1>
+
+          <p class="hero-text">
+            شركة درع التنمية المستدامة لاستيراد مواد البناء
+            وملحقاتها، نوفر حلول توريد موثوقة تلبي احتياجات
+            المشاريع وتدعم جودة التنفيذ.
+          </p>
+
+          <div class="hero-actions">
+
+            <a
+              href="#products"
+              class="btn btn-primary"
+            >
+              اكتشف منتجاتنا
+            </a>
+
+            <a
+              href="tel:0922131116"
+              class="btn btn-outline"
+            >
+              تواصل معنا
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="hero-photo-label">
+        BUILDING MATERIALS · LIBYA
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================= -->
+
+    <section class="section about" id="about">
+
+      <div class="container">
+
+        <div class="about-grid">
+
+          <div>
+
+            <div class="section-mark">
+              من نحن
+            </div>
+
+            <div class="about-image">
+
+              <img
+                src="https://images.pexels.com/photos/13758314/pexels-photo-13758314.jpeg?cs=srgb&dl=pexels-markus-winkler-1430818-13758314.jpg&fm=jpg"
+                alt="مواد بناء داخل مستودع"
+                loading="lazy"
+              >
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <h2 class="about-title">
+              شريكك في سلسلة توريد
+              مواد البناء.
+            </h2>
+
+            <p class="about-text">
+              نعمل على استيراد وتوفير مواد البناء وملحقاتها
+              لتلبية احتياجات المقاولين والمشاريع والأسواق.
+              نركز على اختيار المنتجات المناسبة، انتظام التوريد
+              والتعامل المهني مع عملائنا.
+            </p>
+
+            <div class="stats">
+
+              <div class="stat">
+                <strong>مواد البناء</strong>
+                <span>تشكيلة تلبي احتياجات المشاريع</span>
+              </div>
+
+              <div class="stat">
+                <strong>توريد منظم</strong>
+                <span>متابعة واضحة لطلبات العملاء</span>
+              </div>
+
+              <div class="stat">
+                <strong>علاقة طويلة</strong>
+                <span>شراكات مبنية على الثقة</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PRODUCTS
+    ========================= -->
+
+    <section class="section products" id="products">
+
+      <div class="container">
+
+        <div class="products-heading">
+
+          <h2 class="products-title">
+            ما تحتاجه مشاريعك،
+            في مكان واحد.
+          </h2>
+
+          <p class="products-lead">
+            نوفر مجموعة من مواد البناء وملحقاتها لتغطية
+            الاحتياجات الأساسية للمشاريع وأعمال الإنشاء
+            والتجهيز.
+          </p>
+
+        </div>
+
+
+        <div class="product-grid">
+
+          <article class="product">
+
+            <div class="product-image">
+
+              <img
+                src="https://images.pexels.com/photos/13758314/pexels-photo-13758314.jpeg?cs=srgb&dl=pexels-markus-winkler-1430818-13758314.jpg&fm=jpg"
+                alt="مواد بناء"
+                loading="lazy"
+              >
+
+            </div>
+
+            <div class="product-content">
+
+              <div class="product-number">
+                01
+              </div>
+
+              <h3>
+                مواد البناء
+              </h3>
+
+              <p>
+                منتجات أساسية لمراحل البناء والتشييد المختلفة.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <article class="product">
+
+            <div class="product-image">
+
+              <img
+                src="https://images.pexels.com/photos/4170172/pexels-photo-4170172.jpeg?cs=srgb&dl=pexels-enginakyurt-4170172.jpg&fm=jpg"
+                alt="مستودع مواد بناء"
+                loading="lazy"
+              >
+
+            </div>
+
+            <div class="product-content">
+
+              <div class="product-number">
+                02
+              </div>
+
+              <h3>
+                مستلزمات التشطيب
+              </h3>
+
+              <p>
+                منتجات مساندة لأعمال التشطيب وتجهيز المشاريع.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <article class="product">
+
+            <div class="product-image">
+
+              <img
+                src="https://mokonzitm.com/assets/construction-materials-D-m2fPPi.jpg"
+                alt="حديد وأسمنت ومواد بناء"
+                loading="lazy"
+              >
+
+            </div>
+
+            <div class="product-content">
+
+              <div class="product-number">
+                03
+              </div>
+
+              <h3>
+                ملحقات البناء
+              </h3>
+
+              <p>
+                مجموعة من الملحقات التي تكمل مراحل العمل.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <article class="product">
+
+            <div class="product-image">
+
+              <img
+                src="https://images.pexels.com/photos/4170172/pexels-photo-4170172.jpeg?cs=srgb&dl=pexels-enginakyurt-4170172.jpg&fm=jpg"
+                alt="مستودع توريد"
+                loading="lazy"
+              >
+
+            </div>
+
+            <div class="product-content">
+
+              <div class="product-number">
+                04
+              </div>
+
+              <h3>
+                حلول للمشاريع
+              </h3>
+
+              <p>
+                توريد يلائم احتياجات المقاولين والمشاريع.
+              </p>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         VALUES
+    ========================= -->
+
+    <section class="section values-section" id="values">
+
+      <div class="container">
+
+        <div class="values-grid">
+
+          <div>
+
+            <div class="section-mark">
+              لماذا درع؟
+            </div>
+
+            <h2 class="values-title">
+              علاقة تجارية
+              مبنية على الثقة.
+            </h2>
+
+            <p class="values-text">
+              في قطاع مواد البناء، جودة التوريد لا تقل أهمية
+              عن جودة المنتج. لذلك نضع الوضوح والالتزام وجودة
+              الاختيار في أساس تعاملنا.
+            </p>
+
+          </div>
+
+
+          <div class="value-list">
+
+            <div class="value">
+
+              <div class="value-symbol">
+                ◆
+              </div>
+
+              <div>
+                <h3>
+                  التزام في التعامل
+                </h3>
+
+                <p>
+                  نحرص على وضوح التواصل ومتابعة احتياجات
+                  العملاء من بداية الطلب حتى التوريد.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="value">
+
+              <div class="value-symbol">
+                ◆
+              </div>
+
+              <div>
+                <h3>
+                  اهتمام بالتفاصيل
+                </h3>
+
+                <p>
+                  اختيار المنتجات وتفاصيل التوريد جزء أساسي
+                  من جودة الخدمة التي نقدمها.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="value">
+
+              <div class="value-symbol">
+                ◆
+              </div>
+
+              <div>
+                <h3>
+                  رؤية مستدامة
+                </h3>
+
+                <p>
+                  نعمل على بناء علاقات وأعمال تستمر على
+                  المدى الطويل.
+                </p>
+              </div>
+
+            </div>
+
+
+            <div class="value">
+
+              <div class="value-symbol">
+                ◆
+              </div>
+
+              <div>
+                <h3>
+                  شريك للمشاريع
+                </h3>
+
+                <p>
+                  هدفنا أن نكون جزءًا موثوقًا من سلسلة
+                  التوريد التي يعتمد عليها المشروع.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         LOCATION
+    ========================= -->
+
+    <section class="location" id="location">
+
+      <div class="container">
+
+        <div class="location-grid">
+
+          <div class="location-content">
+
+            <div class="section-mark">
+              موقعنا
+            </div>
+
+            <h2 class="location-title">
+              زورنا في
+              موقعنا.
+            </h2>
+
+            <p class="location-text">
+              يمكنك الوصول إلينا بسهولة من خلال الخريطة.
+              نرحب بزيارتكم والتواصل معنا للاستفسار عن
+              مواد البناء واحتياجات مشاريعكم.
+            </p>
+
+            <div class="location-details">
+
+              <div class="location-detail">
+
+                <div class="location-icon">
+                  📍
+                </div>
+
+                <span>
+                  ليبيا
+                </span>
+
+              </div>
+
+              <div class="location-detail">
+
+                <div class="location-icon">
+                  ☎
+                </div>
+
+                <a href="tel:0922131116">
+                  0922131116
+                </a>
+
+              </div>
+
+              <div class="location-detail">
+
+                <div class="location-icon">
+                  ◉
+                </div>
+
+                <span>
+                  درع التنمية المستدامة لاستيراد مواد البناء وملحقاتها
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="map-wrapper">
+
+            <div class="map-label">
+              موقع درع التنمية المستدامة
+            </div>
+
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3366.8743118811853!2d14.594400384826235!3d32.44929888107219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzLCsDI2JzU3LjUiTiAxNMKwMzUnMzIuMCJF!5e0!3m2!1sar!2sly!4v1790853340803!5m2!1sar!2sly"
+              width="600"
+              height="450"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              title="موقع درع التنمية المستدامة على الخريطة"
+            ></iframe>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTACT
+    ========================= -->
+
+    <section class="contact" id="contact">
+
+      <div class="contact-inner">
+
+        <div>
+
+          <h2>
+            عندك مشروع؟
+            خلينا نبدأ التوريد.
+          </h2>
+
+          <p>
+            تواصل معنا للاستفسار عن المواد والمنتجات
+            واحتياجات مشاريعك.
+          </p>
+
+        </div>
+
+
+        <div class="contact-info">
+
+          <a
+            href="tel:0922131116"
+            class="phone"
+          >
+            092-2131116
+          </a>
+
+          <a
+            href="#location"
+            class="btn btn-primary"
+          >
+            موقعنا
+          </a>
+
+          <a
+            href="tel:0922131116"
+            class="btn btn-outline"
+          >
+            اتصل بنا
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+
+          <img
+            src="logo.png"
+            alt="درع التنمية المستدامة"
+          >
+
+          <div>
+
+            <h3>
+              درع التنمية المستدامة
+            </h3>
+
+            <p>
+              لاستيراد مواد البناء وملحقاتها
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <nav class="footer-links">
+
+          <a href="#about">
+            عن الشركة
+          </a>
+
+          <a href="#products">
+            منتجاتنا
+          </a>
+
+          <a href="#values">
+            لماذا نحن
+          </a>
+
+          <a href="#location">
+            موقعنا
+          </a>
+
+          <a href="#contact">
+            تواصل معنا
+          </a>
+
+        </nav>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>
+          © 2026 درع التنمية المستدامة
+        </span>
+
+        <span>
+          0922131116
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const reducedMotion =
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    const nav = document.querySelector("#nav");
+    const menu = document.querySelector("#menu");
+
+    menu.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("open");
+      });
+    });
+
+
+    /* =========================
+       NAV SCROLL
+    ========================= */
+
+    window.addEventListener("scroll", () => {
+
+      if (window.scrollY > 40) {
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+
+    }, { passive: true });
+
+
+    /* =========================
+       PRELOADER
+    ========================= */
+
+    const loader = document.querySelector("#loader");
+    const logo = document.querySelector(".loader-logo");
+    const loaderTitle = document.querySelector(".loader-title");
+    const loaderSub = document.querySelector(".loader-sub");
+    const progress = document.querySelector(".loader-progress");
+    const percentage = document.querySelector(".loader-number");
+
+
+    function finishLoader() {
+
+      if (reducedMotion) {
+
+        gsap.set(
+          [logo, loaderTitle, loaderSub, percentage],
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1
+          }
+        );
+
+        gsap.set(progress, {
+          width: "100%"
+        });
+
+        gsap.to(loader, {
+          autoAlpha: 0,
+          duration: .4,
+          onComplete: () => {
+
+            document.body.classList.remove("loading");
+
+            loader.remove();
+
+            animatePage();
+
+          }
+        });
+
+        return;
+      }
+
+
+      const tl = gsap.timeline();
+
+      tl.to(logo, {
+        opacity: 1,
+        scale: 1,
+        duration: .7,
+        ease: "power3.out"
+      })
+
+      .to(loaderTitle, {
+        opacity: 1,
+        y: 0,
+        duration: .5,
+        ease: "power2.out"
+      }, "-=.3")
+
+      .to(loaderSub, {
+        opacity: 1,
+        y: 0,
+        duration: .4
+      }, "-=.25")
+
+      .to(percentage, {
+        opacity: 1,
+        duration: .2
+      })
+
+      .to(progress, {
+        width: "100%",
+        duration: 1.4,
+        ease: "power2.inOut",
+
+        onUpdate: function() {
+
+          const value =
+            Math.round(this.progress() * 100);
+
+          percentage.textContent =
+            value + "%";
+
+        }
+
+      })
+
+      .to(loader, {
+        yPercent: -100,
+        duration: .9,
+        ease: "power4.inOut",
+
+        onComplete: () => {
+
+          document.body.classList.remove("loading");
+
+          loader.remove();
+
+          animatePage();
+
+        }
+
+      });
+
+    }
+
+
+    /* =========================
+       PAGE ANIMATION
+    ========================= */
+
+    function animatePage() {
+
+      const hero = gsap.timeline();
+
+      hero
+        .to(".hero-kicker", {
+          opacity: 1,
+          y: 0,
+          duration: .7,
+          ease: "power3.out"
+        })
+
+        .to(".hero h1", {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power4.out"
+        }, "-=.35")
+
+        .to(".hero-text", {
+          opacity: 1,
+          y: 0,
+          duration: .7,
+          ease: "power3.out"
+        }, "-=.55")
+
+        .to(".hero-actions", {
+          opacity: 1,
+          y: 0,
+          duration: .6,
+          ease: "power3.out"
+        }, "-=.4");
+
+
+      /* =========================
+         HERO PARALLAX
+      ========================= */
+
+      if (!reducedMotion) {
+
+        gsap.to(".hero", {
+          backgroundPositionY: "25%",
+          ease: "none",
+
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          }
+
+        });
+
+      }
+
+
+      /* =========================
+         ABOUT
+      ========================= */
+
+      gsap.from(".about-image", {
+
+        scrollTrigger: {
+          trigger: ".about-image",
+          start: "top 85%"
+        },
+
+        x: 50,
+        opacity: 0,
+        duration: .9,
+        ease: "power3.out"
+
+      });
+
+
+      gsap.from(".about-title", {
+
+        scrollTrigger: {
+          trigger: ".about-title",
+          start: "top 85%"
+        },
+
+        y: 45,
+        opacity: 0,
+        duration: .9,
+        ease: "power3.out"
+
+      });
+
+
+      gsap.from(".stat", {
+
+        scrollTrigger: {
+          trigger: ".stats",
+          start: "top 85%"
+        },
+
+        y: 25,
+        opacity: 0,
+        duration: .6,
+        stagger: .12,
+        ease: "power2.out"
+
+      });
+
+
+      /* =========================
+         PRODUCTS
+      ========================= */
+
+      gsap.from(".product", {
+
+        scrollTrigger: {
+          trigger: ".product-grid",
+          start: "top 82%"
+        },
+
+        y: 55,
+        opacity: 0,
+        duration: .75,
+        stagger: .12,
+        ease: "power3.out"
+
+      });
+
+
+      /* =========================
+         VALUES
+      ========================= */
+
+      gsap.from(".values-title", {
+
+        scrollTrigger: {
+          trigger: ".values-title",
+          start: "top 85%"
+        },
+
+        y: 45,
+        opacity: 0,
+        duration: .8,
+        ease: "power3.out"
+
+      });
+
+
+      gsap.from(".value", {
+
+        scrollTrigger: {
+          trigger: ".value-list",
+          start: "top 82%"
+        },
+
+        x: -35,
+        opacity: 0,
+        duration: .7,
+        stagger: .12,
+        ease: "power3.out"
+
+      });
+
+
+      /* =========================
+         LOCATION
+      ========================= */
+
+      gsap.from(".location-content", {
+
+        scrollTrigger: {
+          trigger: ".location",
+          start: "top 80%"
+        },
+
+        x: 45,
+        opacity: 0,
+        duration: .9,
+        ease: "power3.out"
+
+      });
+
+
+      gsap.from(".map-wrapper", {
+
+        scrollTrigger: {
+          trigger: ".map-wrapper",
+          start: "top 82%"
+        },
+
+        x: -45,
+        opacity: 0,
+        duration: .9,
+        delay: .1,
+        ease: "power3.out"
+
+      });
+
+
+      /* =========================
+         CONTACT
+      ========================= */
+
+      gsap.from(".contact h2", {
+
+        scrollTrigger: {
+          trigger: ".contact",
+          start: "top 82%"
+        },
+
+        y: 45,
+        opacity: 0,
+        duration: .9,
+        ease: "power3.out"
+
+      });
+
+
+      gsap.from(".contact-info", {
+
+        scrollTrigger: {
+          trigger: ".contact",
+          start: "top 82%"
+        },
+
+        x: -40,
+        opacity: 0,
+        duration: .8,
+        delay: .1,
+        ease: "power3.out"
+
+      });
+
+
+      ScrollTrigger.refresh();
+
+    }
+
+
+    /* =========================
+       START
+    ========================= */
+
+    finishLoader();
+
+  </script>
+
+</body>
+</html>
